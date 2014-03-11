@@ -1,13 +1,16 @@
+# TIME VALUE OF MONEY AND OTHER BOND CALCULATIONS
+
 from math import pow, floor, ceil, log, fabs
 
 class TVM:
+  # Payments made begining or end of the period
   bgn, end = 0, 1
 
   def __str__(self):
-      return "n=%f, r=%f, pv=%f, pmt=%f, fv=%f" % (
+      return "n = %f, r = %f, pv = %f, pmt = %f, fv = %f" % (
           self.n, self.r, self.pv, self.pmt, self.fv)
 
-  def __init__(self, n=0.0, r=0.0, pv=0.0, pmt=0.0, fv=0.0, mode=end):
+  def __init__(self, n = 0.0, r = 0.0, pv = 0.0, pmt = 0.0, fv = 0.0, mode = end):
       self.n = float(n)
       self.r = float(r)
       self.pv = float(pv)
