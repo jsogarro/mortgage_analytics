@@ -1,0 +1,39 @@
+extends ../layout
+
+block content
+
+    .container
+
+      h2 New Pool
+
+      h3 Pool Info
+      form(id='form', method='post', action='/mortgages')
+        .form-group
+          label(for='name') Name
+          input(type='text', id='name', name='name', class='form-control')
+        .form-group
+          label(for='cusip') CUSIP
+          input(type='email', id='cusip', name='cusip', class='form-control')
+        .form-group
+          label(for='pool_num') Pool
+          input(type='tel', id='pool_num', name='pool_num', class='form-control')
+        .form-group
+          label(for='pool_num') Maturity
+          input(type='tel', id='maturity', name='maturity', class='form-control')
+        .form-group
+          label(for='pool_num') Rate
+          input(type='tel', id='rate', name='rate', class='form-control')
+        .form-group
+          label(for='pool_num') LTV
+          input(type='tel', id='ltv', name='ltv', class='form-control')
+        .form-group
+          label(for='pool_num') Loan Size
+          input(type='tel', id='loan_size', name='loan_size', class='form-control')
+        .form-group
+          label(for='wac') Rate
+          input(type='tel', id='wac', name='wac', class='form-control')
+        .form-group
+          label(for='prepmt_penalty') Rate
+          input(type='tel', id='prepmt_penalty', name='prepmnt_penalty', class='form-control')
+        .form-group
+          input(type='submit', value='Add Pool', class='btn btn-primary')

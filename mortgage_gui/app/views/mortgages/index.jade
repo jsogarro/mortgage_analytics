@@ -1,0 +1,46 @@
+extends ../layout
+
+block content
+
+  .container
+    h3 Mortgage Pools
+
+    table.table
+      tr
+        th Id
+        th Name
+        th CUSIP
+        th Pool
+        th Maturity
+        th WAC
+        th FICO
+        th Penalty?
+        th CPR
+        th WA Loan Size
+        th LTV
+        th Coupon Rate
+        th Present Value
+        th Payment
+        th Future Value
+        th Mode
+      each mortgage in mortgages
+        tr
+          td
+            a(href='/mortgages/' + mortgage.id) #{mortgage.id}
+          td= mortgage.name
+          td= mortgage.cusip
+          td= mortgage.pool_num
+          td= mortgage.maturity
+          td= mortgage.rate
+          td= mortgage.ltv
+          td= mortgage.wa_loan_size
+          td= mortgage.wac
+          td= mortgage.prepmt_penalty
+          td= mortgage.cpr
+          td
+            a(href='/mortgages/' + mortgage.id + '/edit') Edit
+          td
+            a(href='/mortgages/delete/' + mortgage.id) Delete
+
+    h4
+      a(href='/mortgages/new', class='btn btn-primary') New Pool
