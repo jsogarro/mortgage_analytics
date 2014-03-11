@@ -17,7 +17,7 @@ y = []
 interp = scipy.interpolate.interp1d(tr, yr, bounds_error = False, fill_value = scipy.nam)
 for i in t:
   value = float(interp(i))
-  if not scipy.isnan(value:
+  if not scipy.isnan(value):
     y.append(value)
 
 
