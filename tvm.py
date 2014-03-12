@@ -19,56 +19,50 @@ class TVM:
       self.mode = mode
 
   def calc_pv(self):
-      z = pow(1+self.r, -self.n)
+      z = pow(1 + self.r, -self.n)
       pva = self.pmt / self.r
-      if (self.mode==TVM.bgn): pva += self.pmt
-      return -(self.fv*z + (1 - z) * pva)
+      if (self.mode == TVM.bgn): pva += self.pmt
+      return -(self.fv * z + (1 - z) * pva)
 
   def calc_fv(self):
-      z = pow(1+self.r, -self.n)
+      z = pow(1 + self.r, -self.n)
       pva = self.pmt / self.r
-      if (self.mode==TVM.bgn): pva += self.pmt
-      return -(self.pv + (1 - z) * pva)/z
+      if (self.mode == TVM.bgn): pva += self.pmt
+      return -(self.pv + (1 - z) * pva) / z
 
   def calc_pmt(self):
       z = pow(1 + self.r, -self.n)
-      if self.mode==TVM.bgn:
-          return (self.pv + self.fv*z) * self.r / (z-1) / (1+self.r)
+      if self.mode == TVM.bgn:
+          return (self.pv + self.fv * z) * self.r / (z - 1) / (1 + self.r)
       else:
-          return (self.pv + self.fv*z) * self.r / (z-1)
+          return (self.pv + self.fv * z) * self.r / (z - 1)
 
   def calc_n(self):
       pva = self.pmt / self.r
       if (self.mode==TVM.bgn): pva += self.pmt
-      z = (-pva-self.pv) / (self.fv-pva)
-      return -log(z) / log(1+self.r)
+      z = (-pva-self.pv) / (self.fv - pva)
+      return -log(z) / log(1 + self.r)
     
   def calc_r(self):
     def function_fv(r, self):
       z = pow(1+r, -self.n)
       pva = self.pmt / r
-      if (self.mode==TVM.bgn): pva += self.pmt
-      return -(self.pv + (1-z) * pva)/z
-    return self.newton(f=function_fv, fArg=self, x0=.05, 
-      y=self.fv, maxIter=1000, minError=0.0001) 
+      if (self.mode == TVM.bgn): pva += self.pmt
+      return -(self.pv + (1 - z) * pva) / z
+    return self.newton(f = function_fv, fArg = self, x0 = .05, 
+      y = self.fv, maxIter = 1000, minError = 0.0001) 
 
-
-  # f - function with 1 float returning float
-  # x0 - initial value
-  # y - desired value
-  # maxIter - max iterations
-  # minError - minimum error abs(f(x)-y)
   def newton(f, fArg, x0, y, maxIter, minError):
     def func(f, fArg, x, y):
       return f(x, fArg) - y
     def slope(f, fArg, x, y):
       xp = x * 1.05
-      return (func(f, fArg, xp, y)-func(f, fArg, x, y)) / (xp-x)      
+      return (func(f, fArg, xp, y) - func(f, fArg, x, y)) / (xp - x)      
     counter = 0
     while 1:
       sl = slope(f, fArg, x0, y);
       x0 = x0 - func(f, fArg, x0, y) / sl
       if (counter > maxIter): break
-      if (abs(f(x0, fArg)-y) < minError): break
+      if (abs(f(x0, fArg) - y) < minError): break
       counter += 1
     return x0 
