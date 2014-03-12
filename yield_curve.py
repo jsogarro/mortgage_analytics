@@ -19,7 +19,7 @@ for line in data.split('\n'):
     continue
     b = Bond()
     b.freq = 2
-    b.epic = entries[0]
+    b.cusip = entries[0]
     b.desc = entries[1]
     b.couponRate = float(entries[2]) / 100.0
     b.maturity = datetime.strptime(entries[3], '%d-%b-%y')
