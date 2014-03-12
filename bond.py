@@ -3,12 +3,13 @@ import time
 from tvm import TVM
 
 class Bond:
-    cusip = None
-    desc = None
-    maturity = None
-    freq = None
-    bid = None
-    ask = None
+    def __init__(self):
+        self.cusip = None
+        self.desc = None
+        self.maturity = None
+        self.freq = None
+        self.bid = None
+        self.ask = None
 
     def __str__(self):
         return "cusip = %s ttm = %f ytm = %f" % (self.cusip, self.ttm(), self.calc_ytm())
