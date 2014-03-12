@@ -1,7 +1,7 @@
 from math import pow, floor, ceil, log, fabs
 
 class TVM:
-    # Payments made begining or end of the period
+    # Payments made beginning or end of the period
     bgn, end = 0, 1
 
     def __str__(self):
