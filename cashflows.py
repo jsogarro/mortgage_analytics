@@ -112,7 +112,3 @@ class Cashflow:
         legend( ('Total MBS Cash Flow', 'Equity Tranche Cash Flow', 'Junior Tranche Cash Flow','Senior Tranche Cash Flow'), loc='upper right')
         plt.grid(True)
         plt.show()
-
-
-c = Cashflow()
-c.cal_rmbs()

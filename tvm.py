@@ -1,4 +1,5 @@
-from math import pow, floor, ceil, log, fabs
+from math import pow, floor, ceil, log
+from optimization import newton
 
 class TVM:
     # Payments made beginning or end of the period
@@ -47,20 +48,20 @@ class TVM:
             pva = self.pmt / r
             if (self.mode == TVM.bgn): pva += self.pmt
             return -(self.pv + (1 - z) * pva) / z
-        return self.newton(f = function_fv, fArg = self, x0 = .05, 
+        return newton(f = function_fv, fArg = self, x0 = .05, 
             y = self.fv, maxIter = 1000, minError = 0.0001) 
 
-    def newton(f, fArg, x0, y, maxIter, minError):
-        def func(f, fArg, x, y):
-            return f(x, fArg) - y
-        def slope(f, fArg, x, y):
-            xp = x * 1.05
-            return (func(f, fArg, xp, y) - func(f, fArg, x, y)) / (xp - x)      
-        counter = 0
-        while 1:
-            sl = slope(f, fArg, x0, y);
-            x0 = x0 - func(f, fArg, x0, y) / sl
-            if (counter > maxIter): break
-            if (abs(f(x0, fArg) - y) < minError): break
-            counter += 1
-        return x0 
+    # def newton(f, fArg, x0, y, maxIter, minError):
+    #     def func(f, fArg, x, y):
+    #         return f(x, fArg) - y
+    #     def slope(f, fArg, x, y):
+    #         xp = x * 1.05
+    #         return (func(f, fArg, xp, y) - func(f, fArg, x, y)) / (xp - x)      
+    #     counter = 0
+    #     while 1:
+    #         sl = slope(f, fArg, x0, y);
+    #         x0 = x0 - func(f, fArg, x0, y) / sl
+    #         if (counter > maxIter): break
+    #         if (abs(f(x0, fArg) - y) < minError): break
+    #         counter += 1
+    #     return x0 

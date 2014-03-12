@@ -10,6 +10,7 @@ class Bond:
         self.freq = None
         self.bid = None
         self.ask = None
+        self.couponRate = None
 
     def __str__(self):
         return "cusip = %s ttm = %f ytm = %f" % (self.cusip, self.ttm(), self.calc_ytm())
