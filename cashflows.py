@@ -1,77 +1,48 @@
-def rmbs_show(self):
-    self.clr_update_frame()
- 
-    # Prepayment Rate
-    Label( self.update_frame, text="CPR" ).grid( row = 0, column= 0 )    
-    w = Scale( self.update_frame, from_=0.01, to=0.20, resolution = 0.005, orient=HORIZONTAL, variable=self.rmbs_cpr, showvalue = True )
-    w.grid(row = 0, column = 1)
+def rmbs_show(self): 
+    # Prepayment Rate (CPR)
+    rmbs_cpr = 0.050
  
     # Mortgage Type (1 == Fixed Principal)
-    cb_mortgage_type = Checkbutton(self.update_frame,variable=self.rmbs_mortgageType ,text="Fix Principal")
-    cb_mortgage_type.grid(row=0, column=2)
+    cb_mortgage_type = 0
  
     # MBS Outstanding Balance
-    Label( self.update_frame, text="Outstanding Bal" ).grid( row = 1, column= 0 )
-    e = Entry( self.update_frame)
-    e.insert(0,"100000")
-    e.grid(row = 2, column =0)
+    outstanding_balance = 100000
  
     # MBS Average Period
-    Label( self.update_frame, text="Period").grid(row = 1, column=1 )
-    term = Entry(self.update_frame)
-    term.insert(0,"360")
-    term.grid(row = 2, column=1)
+    term = 360
  
     # MBS Average Rate
-    Label( self.update_frame, text="Mortgage Rate").grid(row = 1, column=2 )
-    mortgage_rate = Entry(self.update_frame)
-    mortgage_rate.insert(0,"0.16")
-    mortgage_rate.grid(row = 2, column=2)
+    mortgage_rate = 0.16
  
     # MBS Senior Tranche Balance
-    Label( self.update_frame, text="Senior Tranche" ).grid( row = 4, column= 0 )
-    de = Entry( self.update_frame)
-    de.grid(row = 5, column =0)
-    de.insert(0,"50000")
+    senior_req = 50000
  
     # MBS Senior Tranche Rate
-    Label( self.update_frame, text="Senior Rate" ).grid( row = 4, column= 1 )
-    de_rate = Entry( self.update_frame )
-    de_rate.grid(row = 5, column = 1)
-    de_rate.insert(0,"0.03") ## senior rate
- 
+    senior_rate = 0.03
+
     # MBS Junior Tranche Balance
-    Label( self.update_frame, text="Junior Tranche" ).grid( row = 6, column= 0 )
-    de1 = Entry( self.update_frame)
-    de1.grid(row = 7, column =0)
-    de1.insert(0,"10000")
+    junior_req = 10000
  
     # MBS Junior Tranche Rate
-    Label( self.update_frame, text="Junior Rate" ).grid( row = 6, column= 1 )
-    de_rate1 = Entry( self.update_frame )
-    de_rate1.grid(row = 7, column = 1)
-    de_rate1.insert(0,"0.11") ## junior rate
- 
-    # Equity is Outstanding - Senior - Junior Balances
-    Label( self.update_frame, text="Equity" ).grid( row = 8, column= 0 ) 
+    junior_rate = 0.11 ## junior rate
  
     ## 1 == fixed principal
     def cal_rmbs():
-        self.period = int(term.get())
+        self.period = term
         self.mortgage_cf = []
         # cb_mortgage_type.select()
         # calculate the SMM based on assumed CPR
-        smm = 1 - math.pow(( 1 - float(self.rmbs_cpr.get())),1/12.0)
+        smm = 1 - math.pow(( 1 - float(self.rmbs_cpr),1/12.0)
         # print smm
         # print "SMM %f" % smm
-        balance = float(e.get())
+        balance = outstanding_balance
         # print balance
-        period = int(term.get())
+        period = term
         # mortgage_rate = 
  
-        r = float(mortgage_rate.get())/12.0
+        r = mortgage_rate / 12.0
         # print self.rmbs_mortgageType.get()
-        if self.rmbs_mortgageType.get() == 1 :
+        if self.rmbs_mortgageType == 1 :
         # fix principal method
             monthly_principal = balance / float(period)
             for i in range(period):
@@ -90,7 +61,7 @@ def rmbs_show(self):
                 self.mortgage_cf.append(mcf)
         #fix amount method
         else:
-            mthpyt = balance * r * math.pow((1+r),period) / (math.pow((1 + r),period) -1)
+            mthpyt = balance * r * math.pow((1 + r),period) / (math.pow((1 + r),period) -1)
             for i in range(period):
                 mcf = 0.0
                 interest = balance * r
@@ -113,8 +84,8 @@ def rmbs_show(self):
         self.senior_cf = []
         self.junior_cf = []
         self.equity_cf = []
-        senior_req = float(de.get()) * float(de_rate.get())
-        junior_req = float(de1.get()) * float(de_rate1.get())
+        senior_req = senior_req * senior_rate
+        junior_req = junior_req * junior_rate
 
         # this is the waterfall
         for i in self.mortgage_cf:
