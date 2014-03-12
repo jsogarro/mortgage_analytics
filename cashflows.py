@@ -1,6 +1,6 @@
 from pylab import *
 
-def rmbs_show(self):
+class Cashflow:
     # Prepayment Rate (CPR)
     rmbs_cpr = 0.050
 
@@ -28,18 +28,24 @@ def rmbs_show(self):
     # MBS Junior Tranche Rate
     junior_rate = 0.11 ## junior rate
 
+    # Tranches
+    mortgage_cf = []
+    junior_cf = []
+    equity_cf = []
+
+
     ## 1 == fixed principal
-    def cal_rmbs():
-        self.period = term
+    def cal_rmbs(self):
+        self.period = self.term
         self.mortgage_cf = []
-        # cb_mortgage_type.select()
+ 
         # calculate the SMM based on assumed CPR
         smm = 1 - math.pow(( 1 - float(self.rmbs_cpr), 1/12.0))
         # print smm
         # print "SMM %f" % smm
-        balance = outstanding_balance
+        balance = self.outstanding_balance
         # print balance
-        period = term
+        period = self.term
         # mortgage_rate =
 
         r = mortgage_rate / 12.0
@@ -83,9 +89,6 @@ def rmbs_show(self):
 
         # self.mortgage_cf = x for x in self.mortgage_cf if x > 0
 
-        self.senior_cf = []
-        self.junior_cf = []
-        self.equity_cf = []
         senior_req = senior_req * senior_rate
         junior_req = junior_req * junior_rate
 
